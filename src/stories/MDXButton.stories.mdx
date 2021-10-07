@@ -1,0 +1,54 @@
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+import Button from "./Button.vue";
+
+<Meta title="MDX/ButtonExample" component={Button} />
+
+## With Default render function
+
+<Canvas>
+  <Story
+    name="Button with render function"
+    args={{
+      primary: true,
+      label: "Boop",
+    }}
+    render={(args) => ({
+      components: { Button },
+      setup() {
+        return { args };
+      },
+      template: `
+        <div>
+          <h1>I'm a example MDX story with a custom render function</h1>
+          <Button v-bind="args" />
+        </div>`,
+    })}
+  />
+</Canvas>
+
+## Example without render function
+
+export const Template = (args) => ({
+  components: { Button },
+  setup() {
+    return { args };
+  },
+  template: `
+    <div>
+      <h1>I'm a example MDX story without a custom render function</h1>
+      <Button v-bind="args" />
+    </div>`,
+});
+
+<Canvas>
+  <Story
+    name="Button without render function"
+    args={{
+      primary: true,
+      label: "Boop",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
